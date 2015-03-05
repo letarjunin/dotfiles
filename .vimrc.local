@@ -1,0 +1,51 @@
+
+nnoremap <F4> :execute "Gs " . expand("<cword>") <CR>
+nnoremap <F5> :call TogglePresentation()<CR>
+"
+"custom grep search mimic wf fcode
+command! -complete=shellcmd -nargs=+ Gs call s:RunGrepCommand(<q-args>)
+function! s:RunGrepCommand(cmdline)
+    let expanded_cmdline = a:cmdline
+
+    let extensions = "cpp|hpp|h|cs|rb|i|py|sh|bash"
+    let includes = ""
+    for fileType in split(extensions, '|')
+        let includes .= "--include=*." . fileType . " "
+    endfor
+    execute " lgrep -srn --binary-files=without-match " . includes . "--exclude-dir=.svn . -e \"" . expanded_cmdline . "\"" 
+    lwindow
+    1
+endfunction
+
+function! TogglePresentation()
+    if !exists('w:present')
+        let w:present=0
+    endif
+
+    if w:present==0
+        set background=light
+        let w:present=1
+    else
+        set background=dark
+        let w:present=0
+    end
+
+    let g:solarized_termcolors=256
+    colorscheme solarized
+endfunction
+
+"custom grep search mimic wf fcode
+command! -complete=shellcmd -nargs=+ Gts call s:RunTestGrepCommand(<q-args>)
+function! s:RunTestGrepCommand(cmdline)
+    let expanded_cmdline = a:cmdline
+    execute " lgrep -srnw --binary-files=without-match --exclude-dir=.svn . -e \"" . expanded_cmdline . "\"" 
+    lwindow
+    1
+endfunction
+
+" ** adds all the dir recursively. This will ensure that vim finds the file
+" when we do a gf command.
+set path=.,/usr/include,,**
+
+"Opening gf in a new tab always
+nnoremap gf <C-W>gf
