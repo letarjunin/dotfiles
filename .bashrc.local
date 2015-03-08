@@ -81,12 +81,19 @@ function _get_path_str {
     fi
 }
 
+function _is_mac {
+    s="$(uname)"; 
+    if [ "$s" == "Darwin" ]; then
+        echo "yes";
+    fi;
+}
+
 function _get_git_str {
     if [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1; then 
         git_f="$(git config --get remote.origin.url )"; 
         git_f=${git_f##*/}; 
         git_f=${git_f%.*}; 
-        git_modif="M$( git ls-files -m | wc -l )";
+        git_modif="M$( echo $( git ls-files -m | wc -l ) )";
         echo "$PINKISH$git_f|$git_modif$NO_COLOR"; 
     else
         echo "$PINKISH[NA]$NO_COLOR"
@@ -158,7 +165,11 @@ function __prompt_command {
 
     # ♫ ☠ 
     # ☯
-    PS1="┌($time)-($job)-($git)-($ipaddr)-($path)\n└>($user)-($precmd) \\$ "
+    if [ $(_is_mac) ]; then
+        PS1="┌($time)-($job)-($git)-($path)\n└>($user) \\$ ";
+    else
+        PS1="┌($time)-($job)-($git)-($ipaddr)-($path)\n└>($user)-($precmd) \\$ ";
+    fi
     PS2="$BLUE>$NO_COLOR "
     PS4='$BLUE+$NO_COLOR '
 }
