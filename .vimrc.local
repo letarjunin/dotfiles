@@ -7,7 +7,7 @@ command! -complete=shellcmd -nargs=+ Gs call s:RunGrepCommand(<q-args>)
 function! s:RunGrepCommand(cmdline)
     let expanded_cmdline = a:cmdline
 
-    let extensions = "cpp|hpp|h|cs|rb|i|py|sh|bash"
+    let extensions = "c|cpp|hpp|h|cs|rb|i|py|pl|sh|bash"
     let includes = ""
     for fileType in split(extensions, '|')
         let includes .= "--include=*." . fileType . " "
