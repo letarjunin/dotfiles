@@ -49,7 +49,7 @@ def set_wallpaper
   if os_type == OS_ENUM::LINUX
     cmd = "gsettings set org.gnome.desktop.background picture-uri file:///#{ TEMP_FILE }" 
   elsif os_type == OS_ENUM::MAC
-    cmd = "osascript -e 'tell application \"Finder\" to set desktop picture to POSIX file \"#{ TEMP_FILE }\"'"
+    cmd = "osascript -e 'tell application \"Finder\" to set desktop picture to POSIX file \"#{ TEMP_FILE }\"'; killall Dock"
   else
     return #WIN not supported yet!
   end
