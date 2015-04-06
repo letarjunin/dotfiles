@@ -36,7 +36,7 @@ def process_pushes
     #Note, you need your own API_KEY defined here.
     client = Washbullet::Client.new( API_KEY )
     client.pushes.body[ "pushes" ].each do |p|
-      if p[ "active" ].to_s == 'true' and p[ 'type' ].to_s == 'file' and p[ 'direction' ].to_s == 'self' and p[ 'file_type' ].to_s.include? ( 'image/jpeg' )
+      if p[ "active" ].to_s == 'true' and p[ 'type' ].to_s == 'file' and p[ 'file_type' ].to_s.include? ( 'image/jpeg' )
         download_file( p[ 'image_url' ] )
         return true
       end
