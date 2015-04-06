@@ -8,6 +8,22 @@ require_relative 'pb_private.rb'
 
 TEMP_FILE = "/tmp/temp.jpeg"
 
+module OS_ENUM
+  LINUX = 0
+  MAC   = 1
+  WIN   = 2
+end
+
+def os_type
+  if RUBY_PLATFORM.include? ("linux")
+    return OS_ENUM::LINUX
+  elsif RUBY_PLATFORM.include? ("darwin")
+    return OS_ENUM::MAC
+  else
+    return OS_ENUM::WIN
+  end
+end
+
 def download_file( url, folder = TEMP_FILE )
   File.open( TEMP_FILE, "wb") do |saved_file|
     open( url, "rb" ) do |read_file|
@@ -30,10 +46,12 @@ end
 
 def set_wallpaper
   cmd = ""
-  if RUBY_PLATFORM.include? ("linux")
+  if os_type == OS_ENUM::LINUX
     cmd = "gsettings set org.gnome.desktop.background picture-uri file:///#{ TEMP_FILE }" 
-  elsif RUBY_PLATFORM.include? ("darwin")
-    cmd = "gsettings set org.gnome.desktop.background picture-uri file:///#{ TEMP_FILE }" 
+  elsif os_type == OS_ENUM::MAC
+    cmd = "osascript -e 'tell application \"Finder\" to set desktop picture to POSIX file \"#{ TEMP_FILE }\"'"
+  else
+    return #WIN not supported yet!
   end
   exec cmd if process_pushes
 end
