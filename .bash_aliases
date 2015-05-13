@@ -15,6 +15,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias less='less -R'
+alias vless='vim -u /usr/share/vim/vim74/macros/less.vim'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
