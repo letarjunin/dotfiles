@@ -6,7 +6,8 @@ require 'shellwords'
 require 'pry'
 require_relative 'pb_private.rb'
 
-TEMP_FILE = "/tmp/temp.jpeg"
+PWD = Dir.pwd
+TEMP_FILE = "#{ PWD }/Downloads/temp.jpeg"
 
 module OS_ENUM
   LINUX = 0

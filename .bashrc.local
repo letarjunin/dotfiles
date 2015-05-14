@@ -184,6 +184,11 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 #Code to get all the colors printed in bash.
 #for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done"]"
 
+
+#Set editor
+export EDITOR='vim'
+
+
 alias rsync='rsync -avzul --ignore-existing --stats --progress'
 alias mp2='ruby /media/naruto/Storage/Arjun/mplayer-ruby-master/mp2.rb'
 alias syn='syndaemon -i 1 -KRd'
