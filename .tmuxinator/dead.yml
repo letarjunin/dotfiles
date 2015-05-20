@@ -21,11 +21,19 @@ root: ~/
 # Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
 # startup_window: logs
 
+tmux_options: -2
 windows:
   - editor:
-      layout: 0667,203x58,0,0{40x58,0,0,0,162x58,41,0,1}
+      #layout: 0667,203x58,0,0{40x58,0,0,0,162x58,41,0,1}
+      layout: a319,640x56,0,0{35x56,0,0,7,177x56,36,0,6,213x56,214,0,16,212x56,428,0,17}
       panes:
         - vim:
             - t stream timeline
-        - swim:
+        - na2-1:
+            - ssh avenugop@nalogin
+            - ssh avenugop@n2
+        - na2-2:
+            - ssh avenugop@nalogin
+            - ssh avenugop@n2
+        - local:
             - ls
