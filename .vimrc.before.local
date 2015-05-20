@@ -1,6 +1,5 @@
 let g:spf13_no_autochdir = 1
 let g:ctrlp_working_path_mode = 'r'
 let g:spf13_no_views = 1
-let g:autoclose_on = 1
-
-
+let g:neocomplete#enable_auto_close_preview = 0
+let g:autoclose_on = 0
