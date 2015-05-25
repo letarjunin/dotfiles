@@ -1,14 +1,4 @@
 export MAKE=/usr/bin/make
-export CXX=/usr/bin/g++-4.7
-export CC=/usr/bin/gcc-4.7
-alias gcc=/usr/bin/gcc-4.7
-alias g++=/usr/bin/g++-4.7
-
-export BOOST_HOME=/home/dbz/pandora/boost-1.48.0-gcc453
-export SWIG_COMMAND=/usr/bin/swig
-export JAVA_HOME=/usr/lib/jvm/java-6-openjdk-amd64
-export CLASSPATH=/opt/JUnit/hamcrest-core-1.3.jar:/opt/JUnit/junit-4.11.jar
-export DOXYGEN=/usr/bin/doxygen
 
 #SVN's default editor to vim
 export SVN_EDITOR=vim
