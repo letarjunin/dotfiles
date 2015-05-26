@@ -30,10 +30,10 @@ windows:
         - vim:
             - t stream timeline
         - na2-1:
-            - ssh avenugop@nalogin
-            - ssh avenugop@n2
+            - ssh -X avenugop@nalogin
+            - ssh -X avenugop@n2
         - na2-2:
-            - ssh avenugop@nalogin
-            - ssh avenugop@n2
+            - ssh -X avenugop@nalogin
+            - ssh -X avenugop@n2
         - local:
             - ls
