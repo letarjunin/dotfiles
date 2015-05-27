@@ -31,7 +31,7 @@ for link in $all_files ; do
 done
 
 if [ ! -d ~/.spf13-vim-3/ ]; then
-    echo "Installing SPF13 - this make take a while"
+    echo "Installing SPF13 - this make take a while.."
     cd ~/
     curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && sh spf13-vim.sh
 fi
