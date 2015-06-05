@@ -41,7 +41,7 @@ export PATH_TO_WF=$HOME/workflow/lib/workflow.rb
 source $HOME/workflow/workflow.bash         
 
 function _get_user_str {
-    local User="$GREEN\h$NO_COLOR"
+    local User="$LIGHT_GREEN\h$NO_COLOR"
     local SSH_IP=`echo $SSH_CLIENT | awk '{ print $1 }'`
     local SSH2_IP=`echo $SSH2_CLIENT | awk '{ print $1 }'`
     if [ $SSH2_IP ] || [ $SSH_IP ] ; then
@@ -68,9 +68,9 @@ function _get_path_str {
                         echo NA; 
                     fi; 
                  )'
-        echo "$CYAN\W|$depth$NO_COLOR"
+        echo "$ORANGE\W|$depth$NO_COLOR"
     else
-        echo "$CYAN\w$NO_COLOR"
+        echo "$ORANGE\w$NO_COLOR"
     fi
 }
 
@@ -116,7 +116,7 @@ function _get_ip_str {
 function _get_time_str {
     local date='$(date "+%a|%b|%d" | xargs )'
     local TIME_AUSTIN='$(date "+%l:%M %p" | xargs )'
-    echo "$ORANGE$TIME_AUSTIN$NO_COLOR|$BLUE$date$NO_COLOR"
+    echo "$WHITE_BLACK$TIME_AUSTIN$NO_COLOR|$DARK_GREEN$date$NO_COLOR"
 }
 
 export PROMPT_COMMAND=__prompt_command
@@ -125,14 +125,14 @@ function __prompt_command {
     local err_="$?"
     local BLUE="\[\033[1;38;05;31m\]"
     local YELLO="\[\033[1;38;05;184m\]"
-    local GREEN="\[\033[1;38;05;40m\]"
+    local LIGHT_GREEN="\[\033[1;38;05;40m\]"
     local ORANGE="\[\033[1;38;05;202m\]"
     local RED2="\[\033[1;38;05;196m\]"
     local GREY1="\[\033[1;38;05;235m\]"
     local GREY2="\[\033[1;38;05;244m\]"
     local CYAN="\[\033[1;38;05;44m\]"
-    local LIGHT_GREEN="\[\033[1;38;05;65m\]"
-    local WHITE_BLACK="\[\033[7;38;05;0m\]"
+    local DARK_GREEN="\[\033[1;38;05;65m\]"
+    local WHITE_BLACK="\[\033[7;38;05;07m\]"
     local WHITE="\[\033[1;38;05;7m\]"
     local RED="\[\033[1;38;05;1m\]"
     local PINKISH="\[\033[1;38;05;168m\]"
