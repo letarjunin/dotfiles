@@ -45,7 +45,7 @@ function _get_user_str {
     local SSH_IP=`echo $SSH_CLIENT | awk '{ print $1 }'`
     local SSH2_IP=`echo $SSH2_CLIENT | awk '{ print $1 }'`
     if [ $SSH2_IP ] || [ $SSH_IP ] ; then
-        User="$RED\h$NO_COLOR"
+        User="$YELLO\h$NO_COLOR"
     fi
     echo $User
 }
@@ -68,9 +68,9 @@ function _get_path_str {
                         echo NA; 
                     fi; 
                  )'
-        echo "$YELLO\W|$depth$NO_COLOR"
+        echo "$CYAN\W|$depth$NO_COLOR"
     else
-        echo "$YELLO\w$NO_COLOR"
+        echo "$CYAN\w$NO_COLOR"
     fi
 }
 
