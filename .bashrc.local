@@ -74,6 +74,14 @@ function _get_path_str {
     fi
 }
 
+function _is_git_repo {
+    if [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1; then 
+        echo "1"
+    else
+        echo ""
+    fi
+}
+
 function _get_git_str {
     if [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1; then 
         git_f="$(git config --get remote.origin.url )"; 
@@ -152,7 +160,7 @@ function __prompt_command {
     local path="($(_get_path_str))"
     local user="($(_get_user_str))"
 
-    PS1="┌$time$user$git$job\n└>$path \\$ ";
+    PS1="┌$time$user$git$job$path\n└> \\$ ";
     PS2="$BLUE>$NO_COLOR "
     PS4='$BLUE+$NO_COLOR '
 }
