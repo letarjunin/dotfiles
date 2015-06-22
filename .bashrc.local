@@ -160,7 +160,7 @@ function __prompt_command {
     local path="($(_get_path_str))"
     local user="($(_get_user_str))"
 
-    PS1="┌$time$user$git$job$path\n└> \\$ ";
+    PS1="┌$time$user$git$job$path\n└>$ ";
     PS2="$BLUE>$NO_COLOR "
     PS4='$BLUE+$NO_COLOR '
 }
