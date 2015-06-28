@@ -11,21 +11,57 @@ MOVE_DIR_PATH = File.join( File.expand_path( "..", Dir.pwd ) , 'keep' )
 TIMEOUT_VAL = 2
 TIMEOUT_SONG_END_CHECK = 5
 SHOW_DEBUG = false
-$remain = 0
 
 def print_output( o )
     puts o if SHOW_DEBUG
 end
 
 class MplayerWrapper
-    def initialize( file )
+    def initialize( songs_files, listen  )
+        @files = songs_files
         `pkill mplayer`
-        Dir.mkdir MOVE_DIR_PATH unless Dir.exist?( MOVE_DIR_PATH )
-        @player = MPlayer::Slave.new file, :path => '/usr/bin/mplayer'
-        print_info_player( file )
+        @listening_mode = listen
+        @remain = @files.length
+        print_commands
+    end
+
+    def print_commands()
+        puts "Commands  :"
+        puts "Next      : n"
+        puts "Replay    : r"
+        puts "Pause     : p"
+        puts "Forward   : ."
+        puts "Vol up    : 0"
+        puts "Vol down  : 9"
+        puts "Exit      : e"
+        if not @listening_mode
+            puts "Delete    : d"
+            puts "Move      : m"
+        end
+        puts ""
+    end
+
+    def play()
+        @files.each do |file|
+            loadFile( file )
+            @remain-=1
+            while( true )
+                cmd = ""
+                begin
+                    Timeout.timeout(TIMEOUT_SONG_END_CHECK) do      
+                        cmd = STDIN.getch
+                    end
+                rescue Timeout::Error
+                    break if not isRunning?
+                end
+                break if process_cmd( cmd, file )
+            end
+        end
+        print "DONE:\n"
     end
 
     def loadFile( file )
+        @player = MPlayer::Slave.new file, :path => '/usr/bin/mplayer' if @player.nil?
         begin
             Timeout.timeout(TIMEOUT_VAL) do      
                 begin
@@ -58,38 +94,53 @@ class MplayerWrapper
             end
         end
 
-        loadFile( file ) if cmd == 'r'
+        ( print_info_player( file );return false ) if cmd == 'i'
+        ( loadFile( file );return false ) if cmd == 'r'
+        return move_file( file )  if cmd == 'm'
+        return delete_file( file ) if cmd == 'd'
+        ( return true ) if cmd == 'n'
+        ( quit;exit ) if cmd == 'e'
+    end
 
-        if cmd == 'm'
-            FileUtils.mv( file, MOVE_DIR_PATH )
-            puts "Moved file - #{ file } to #{ MOVE_DIR_PATH }"
-            puts
-        end
+    def move_file( file )
+        ( print "Cannot move file in Listening mode.\n";return false ) if @listening_mode 
+        Dir.mkdir MOVE_DIR_PATH unless Dir.exist?( MOVE_DIR_PATH )
+        FileUtils.mv( file, MOVE_DIR_PATH )
+        puts "Moved file - #{ file } to #{ MOVE_DIR_PATH }"
+        puts
+        return true
+    end
 
-        if cmd == 'd'
-            FileUtils.rm_rf( file ) 
-            puts "Deleted file - #{ file }"
-            puts
-        end
-
-        if cmd == 'i'
-            print_info_player( file )
-        end
+    def delete_file( file )
+        ( print "Cannot delete file in Listening mode.\n";return false ) if @listening_mode 
+        FileUtils.rm_rf( file ) 
+        puts "Deleted file - #{ file }"
+        puts
+        return true
     end
 
     def print_info_player( file )
-        begin
-            puts "Remaining : Total  : #{ $remain }"
-            puts "File Info : File   : #{ @player.get :file_name }"
-            puts "          : Rate   : #{ @player.get :audio_bitrate }"
-            puts "          : Title  : #{ @player.get :meta_title }"
-            puts "          : Artist : #{ @player.get :meta_artist }"
-            puts "          : Album  : #{ @player.get :meta_album }"
-            puts "          : Genre  : #{ @player.get :meta_genre }"
-            puts "          : Time   : #{ @player.get :time_length }"
-        rescue ArgumentError
-            puts "Argument error in File (#{file})"
+        info = ""
+        count = 2
+        while( count  )
+            begin
+                info = "Remaining : Total  : #{ @remain }\n"
+                info += "File Info : File   : #{ @player.get :file_name }"
+                info += "          : Rate   : #{ @player.get :audio_bitrate }"
+                info += "          : Title  : #{ @player.get :meta_title }"
+                info += "          : Artist : #{ @player.get :meta_artist }"
+                info += "          : Album  : #{ @player.get :meta_album }"
+                info += "          : Genre  : #{ @player.get :meta_genre }"
+                info += "          : Time   : #{ @player.get :time_length }"
+                info += "\n"
+                break
+            rescue ArgumentError
+                print_output "Argument error in File (#{file})"
+                sleep 2
+                count-=1
+            end
         end
+        puts info
     end
 
     def isRunning?
@@ -104,6 +155,7 @@ class MplayerWrapper
    
     def quit
         @player.quit
+        `pkill mplayer`
     end
 end
 
@@ -118,36 +170,8 @@ if ARGV.length == 1
   end
 end
 
-$remain = files.length
-@wrapper = nil
-files.each do |file|
-    if @wrapper.nil?
-        @wrapper = MplayerWrapper.new file
-    else
-        @wrapper.loadFile file
-    end
-    while( true )
-        
-       cmd = ""
-       begin
-           Timeout.timeout(TIMEOUT_VAL) do      
-               cmd = STDIN.getch
-           end
-       rescue Timeout::Error
-           break if not @wrapper.isRunning?
-       end
-#end"
+@wrapper = MplayerWrapper.new files, false
+@wrapper.play
 
-        @wrapper.process_cmd( cmd, file )
-        if cmd == 'n' || cmd == 'd' || cmd == 'm' 
-          $remain-=1
-          break
-        end
-        if cmd == 'e'
-            @wrapper.quit
-            exit
-        end
-    end
-end
 
 # vim: ts=4:sw=4:et
