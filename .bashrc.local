@@ -88,7 +88,7 @@ function _get_git_str {
         git_f=${git_f##*/}; 
         git_f=${git_f%.*}; 
         git_modif="M$( echo $( git ls-files -m | wc -l ) )";
-        echo "$PINKISH$git_f|$git_modif$NO_COLOR"; 
+        echo "$PINKISH$git_f$NO_COLOR|$CYAN$git_modif$NO_COLOR"; 
     else
         echo ""
     fi;
