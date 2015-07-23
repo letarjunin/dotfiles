@@ -6,8 +6,8 @@ require 'shellwords'
 require 'pry'
 require_relative 'pb_private.rb'
 
-PWD = Dir.pwd
-TEMP_FILE = "#{ PWD }/Downloads/temp.jpeg"
+HOME = File.expand_path( "~" )
+TEMP_FILE = "#{ HOME }/Downloads/temp.jpeg"
 
 module OS_ENUM
   LINUX = 0
@@ -38,7 +38,7 @@ def process_pushes
     client = Washbullet::Client.new( API_KEY )
     client.pushes.body[ "pushes" ].each do |p|
       if p[ "active" ].to_s == 'true' and p[ 'type' ].to_s == 'file' and p[ 'file_type' ].to_s.include? ( 'image/jpeg' )
-        download_file( p[ 'image_url' ] )
+        download_file( p[ 'file_url' ] )
         return true
       end
     end
