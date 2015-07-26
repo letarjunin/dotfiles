@@ -40,7 +40,7 @@ def get_lastest_active_image( time )
       if ( p[ "active" ].to_s == 'true' and 
          p[ 'type' ].to_s == 'file' and
          p[ 'file_type' ].to_s.include? ( 'image/jpeg' ) and
-         p[ 'modified' ] > time )
+         p[ 'created' ] > time )
         download_file( p[ 'file_url' ] )
         return true
       end
@@ -57,5 +57,7 @@ def set_wallpaper( time = ( Time.now - (12*60*60) ).to_i )
   else
     return #WIN not supported yet!
   end
-  exec cmd if get_lastest_active_image( time )
+
+  `#{cmd}` if ( get_lastest_active_image( time ) )
+
 end
