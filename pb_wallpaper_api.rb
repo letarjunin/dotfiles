@@ -15,6 +15,15 @@ module OS_ENUM
   WIN   = 2
 end
 
+module SET_TYPE
+  WALLPAPER = 0
+  SERVICE   = 1
+end
+
+def self.print_msg( msg )
+  puts msg if $DEBUG
+end
+
 def os_type
   if RUBY_PLATFORM.include? ("linux")
     return OS_ENUM::LINUX
@@ -26,6 +35,7 @@ def os_type
 end
 
 def download_file( url, folder = TEMP_FILE )
+  print_msg( url )
   File.open( TEMP_FILE, "wb") do |saved_file|
     open( url, "rb" ) do |read_file|
       saved_file.write(read_file.read)
@@ -33,22 +43,27 @@ def download_file( url, folder = TEMP_FILE )
   end
 end
 
-def get_lastest_active_image( time )
+def get_image( set_type )
     #Note, you need your own API_KEY defined here.
     client = Washbullet::Client.new( API_KEY )
-    client.pushes.body[ "pushes" ].each do |p|
-      if ( p[ "active" ].to_s == 'true' and 
-         p[ 'type' ].to_s == 'file' and
-         p[ 'file_type' ].to_s.include? ( 'image/jpeg' ) and
-         p[ 'created' ] > time )
-        download_file( p[ 'file_url' ] )
-        return true
+    pushes = client.pushes.body[ "pushes" ]
+    if( pushes.length )
+      if( SET_TYPE::SERVICE == set_type )
+        pushes = pushes.slice( 0, 1 )
+      end
+      pushes.each do |p|
+        if ( p[ "active" ].to_s == 'true' and 
+            p[ 'type' ].to_s == 'file' and
+            p[ 'file_type' ].to_s.include? ( 'image/jpeg' ) )
+          download_file( p[ 'file_url' ] )
+          return true
+        end
       end
     end
     return false
 end
 
-def set_wallpaper( time = ( Time.now - (12*60*60) ).to_i )
+def set_wallpaper( set_type )
   cmd = ""
   if os_type == OS_ENUM::LINUX
     cmd = "gsettings set org.gnome.desktop.background picture-uri file:///#{ TEMP_FILE }" 
@@ -58,6 +73,6 @@ def set_wallpaper( time = ( Time.now - (12*60*60) ).to_i )
     return #WIN not supported yet!
   end
 
-  `#{cmd}` if ( get_lastest_active_image( time ) )
+  `#{cmd}` if ( get_image( set_type ) )
 
 end

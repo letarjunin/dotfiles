@@ -23,17 +23,16 @@ root: ~/
 
 tmux_options: -2
 windows:
-  - editor:
-      #layout: 0667,203x58,0,0{40x58,0,0,0,162x58,41,0,1}
-      layout: a319,640x56,0,0{35x56,0,0,7,177x56,36,0,6,213x56,214,0,16,212x56,428,0,17}
+  - HLSIM:
       panes:
-        - vim:
-            - t stream timeline
         - na2-1:
             - ssh -X avenugop@nalogin
             - ssh -X avenugop@n2
+            - cd ~/repo/HLSim/
+  - MINIFE:
+      panes:
         - na2-2:
             - ssh -X avenugop@nalogin
             - ssh -X avenugop@n2
-        - local:
-            - ls
+            - cd ~/miniFE_PIM/
+

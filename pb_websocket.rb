@@ -10,24 +10,14 @@ require_relative 'pb_wallpaper_api.rb'
 
 WS_URL = 'https://stream.pushbullet.com/websocket/'
 
-DEBUG=false
-
-def print_msg( msg )
-  puts msg if DEBUG
-end
-
 EM.run{
-  time_now = Time.now.to_i
   ws = Faye::WebSocket::Client.new( WS_URL + API_KEY )
 
   ws.on :message do |event|
     j = JSON.parse(event.data)
-    if( j["type"] == "nop" )
-      time_now = Time.now.to_i
-    end
     if( j["type"] == "tickle" and j["subtype"] == "push" )
       begin
-        set_wallpaper( time_now )
+        set_wallpaper( SET_TYPE::SERVICE )
       rescue Exception => e
         print_msg "set_wallpaper function errored with -'#{ e.message }'"
       end
