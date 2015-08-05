@@ -167,8 +167,6 @@ function __prompt_command {
 
 #for x in 0 1 4 5 7 8; do for i in `seq 30 37`; do for a in `seq 40 47`; do echo -ne "\e[$x;$i;$a""m\\\e[$x;$i;$a""m\e[0;37;40m "; done; echo; done; done; echo """]]]"
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
 #Code to get all the colors printed in bash.
 #for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done"]"
 
