@@ -21,8 +21,9 @@ end
 EM.run{
   ws = Faye::WebSocket::Client.new( WS_URL + API_KEY )
 
-  ws.on :start do |event|
-    puts wrap_string "Welcome to PB pushbullet."
+  ws.on :open do |event|
+    puts wrap_string "Happy Mirroring!.".green
+    puts
   end
 
   puts
