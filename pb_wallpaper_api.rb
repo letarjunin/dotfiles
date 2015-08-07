@@ -74,5 +74,8 @@ def set_wallpaper( set_type )
   end
 
   `#{cmd}` if ( get_image( set_type ) )
+end
 
+if __FILE__ == $0
+  set_wallpaper( SET_TYPE::WALLPAPER )
 end
