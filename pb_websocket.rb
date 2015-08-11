@@ -12,12 +12,6 @@ require_relative 'pb_wallpaper_api.rb'
 
 WS_URL = 'https://stream.pushbullet.com/websocket/'
 
-def wrap_string( str )
-  width = `tput cols`.to_i
-  sarray = str.gsub(/\n/," ").scan(/\S.{0,#{width-4}}\S(?=\s|$)|\S+/)
-  sarray.collect! { |s| s = " #{s}" }
-end
-
 EM.run{
   ws = Faye::WebSocket::Client.new( WS_URL + API_KEY )
 
