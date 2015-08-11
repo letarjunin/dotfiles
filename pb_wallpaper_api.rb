@@ -76,6 +76,15 @@ def set_wallpaper( set_type )
   `#{cmd}` if ( get_image( set_type ) )
 end
 
+def wrap_string( str )
+  width = `tput cols`.to_i
+  sarray = str.gsub(/\n/," ").scan(/\S.{0,#{width-4}}\S(?=\s|$)|\S+/)
+  sarray.collect! { |s| s = " #{s}" }
+  sarray.join "\n"
+end
+
 if __FILE__ == $0
   set_wallpaper( SET_TYPE::WALLPAPER )
 end
+
+# vim: set filetype=ruby:
