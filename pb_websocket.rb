@@ -73,6 +73,8 @@ def send_reply_msg( json )
 
     client = Washbullet::Client.new(API_KEY)
     client.post( E_PATH, payload )
+    puts
+    
   else 
     puts wrap_string "Error: Can only reply to WhatApp and TextMessage.".red 
   end
