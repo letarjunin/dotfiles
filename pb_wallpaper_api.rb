@@ -46,7 +46,7 @@ end
 def get_image( set_type )
     #Note, you need your own API_KEY defined here.
     client = Washbullet::Client.new( API_KEY )
-    pushes = client.pushes.body[ "pushes" ]
+    pushes = client.get_pushes.body[ "pushes" ]
     if( pushes.length )
       if( SET_TYPE::SERVICE == set_type )
         pushes = pushes.slice( 0, 1 )

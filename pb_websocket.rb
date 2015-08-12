@@ -137,7 +137,4 @@ end
 
 while(true)
   processInputString( gets.chomp )
-  client = Washbullet::Client.new(API_KEY)
-  binding.pry
-  puts client.contacts
 end
