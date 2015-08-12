@@ -27,9 +27,9 @@ class Message
 
   def self.sendWhatsAppReply( json  )
     return if not validateWhatsApp( json )
+    print wrap_string "Replying to #{ json["push"]["title"] }. - ".green
     reply = getsMsg()
     if ( reply )
-      print wrap_string "Replying to #{ json["push"]["title"] }. - ".green
       payload = createPayloadJSON( json )
       payload[:push][:conversation_iden] = json["push"]["conversation_iden"]
       payload[:push][:message] = "#{reply}"
@@ -137,7 +137,4 @@ end
 
 while(true)
   processInputString( gets.chomp )
-  client = Washbullet::Client.new(API_KEY)
-  binding.pry
-  puts client.contacts
 end
