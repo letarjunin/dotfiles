@@ -15,6 +15,72 @@ E_PATH = "v2/ephemerals"
 
 @json_obj = Array.new
 
+class Message
+
+  def self.getsMsg()
+    msg = gets.chomp
+    if not( msg )
+      puts wrap_string "Input cannot be empty. Aborting.".red
+    end
+    return msg
+  end
+
+  def self.sendWhatsAppReply( json  )
+    return if not validateWhatsApp( json )
+    reply = getsMsg()
+    if ( reply )
+      print wrap_string "Replying to #{ json["push"]["title"] }. - ".green
+      payload = createPayloadJSON( json )
+      payload[:push][:conversation_iden] = json["push"]["conversation_iden"]
+      payload[:push][:message] = "#{reply}"
+      sendMessage( payload.to_json )
+    end
+  end
+
+  def self.sendWhatsAppMessage()
+    print wrap_string "Input WhatsApp Number : ".green
+    number  = getsMsg().to_i
+    if( number )
+      print wrap_string "Input Message to send : ".green
+      msg = getsMsg()
+      if ( msg )
+        payload = createPayloadJSON()
+        payload[:push][:conversation_iden] = { "package_name": "com.whatsapp", "tag": "#{ number }@s.whatsapp.net", "id":1 }
+        payload[:push][:message] = "#{msg}"
+        sendMessage( payload.to_json )
+      end
+    end
+  end
+
+  def self.sendSMS( number )
+  end
+
+  def self.validateWhatsApp(json)
+    if( json["type"] == "push" && json["push"]["package_name"] == "com.whatsapp" )
+      return true
+    end
+    return false
+  end
+
+  private
+  def self.sendMessage( payload )
+    client = Washbullet::Client.new(API_KEY)
+    client.post( E_PATH, payload )
+  end
+
+  def self.createPayloadJSON( reply_json=nil)
+    {
+      "type": "push",
+      "push": {
+        "type": "messaging_extension_reply",
+        "package_name": reply_json ? reply_json["push"]["package_name"] : "com.whatsapp",
+        "source_user_iden": reply_json ? reply_json["push"]["source_user_iden"] : "ujA1IIOL2LA",
+        "target_device_iden": reply_json ? reply_json["push"]["source_device_iden"] : "ujA1IIOL2LAsjzZuK9JmHA",
+      }
+    }
+  end
+end
+
 Thread.new{
   EM.run{
     ws = Faye::WebSocket::Client.new( WS_URL + API_KEY )
@@ -50,47 +116,28 @@ Thread.new{
   }
 }
 
-def send_reply_msg( json )
-  if( json["type"] == "push" && json["push"]["package_name"] == "com.whatsapp" )
-    print wrap_string "Replying to #{ json["push"]["title"] }. - ".green
-    reply = gets
-    if not( reply )
-      puts "Ignoring reply (empty message)".red
-      return
-    end
-
-    payload = {
-      "type": "push",
-      "push": {
-        "type": "messaging_extension_reply",
-        "package_name": "com.whatsapp",
-        "source_user_iden": json["push"]["source_user_iden"],
-        "target_device_iden": json["push"]["source_device_iden"],
-        "conversation_iden": json["push"]["conversation_iden"],
-        "message": reply
-      }
-    }.to_json
-
-    client = Washbullet::Client.new(API_KEY)
-    client.post( E_PATH, payload )
-    puts
-    
-  else 
-    puts wrap_string "Error: Can only reply to WhatApp and TextMessage.".red 
-  end
-end
-
-while(true)
-  temp = gets.chomp
+def processInputString(temp)
   if( temp.start_with?"r " )
-    reply_to = temp.split(" ")[1].to_i
     j_size = @json_obj.size
+    reply_to = temp.split(" ")[1].to_i
     if( j_size >= reply_to  )
-      send_reply_msg( @json_obj[ j_size - 1 - reply_to ] )
+      json = @json_obj[ j_size - 1 - reply_to ]
+      Message.sendWhatsAppReply( json )
     else
       puts wrap_string "Error: Message (#{reply_to}) does not exist.".red
     end
-  else 
-    puts wrap_string "Use: r <int> to respond to WhatsApp messages".red
+    return
   end
+  if( temp == "s" )
+      Message.sendWhatsAppMessage()
+      return
+  end
+  puts wrap_string "Use: r <int> or s <number> to respond/create WhatsApp messages".red
+end
+
+while(true)
+  processInputString( gets.chomp )
+  client = Washbullet::Client.new(API_KEY)
+  binding.pry
+  puts client.contacts
 end
