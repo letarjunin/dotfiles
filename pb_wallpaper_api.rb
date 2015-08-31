@@ -54,7 +54,7 @@ def get_image( set_type )
       pushes.each do |p|
         if ( p[ "active" ].to_s == 'true' and 
             p[ 'type' ].to_s == 'file' and
-            p[ 'file_type' ].to_s.include? ( 'image/jpeg' ) )
+            p[ 'file_type' ].to_s.include? ( 'image' ) )
           download_file( p[ 'file_url' ] )
           return true
         end
