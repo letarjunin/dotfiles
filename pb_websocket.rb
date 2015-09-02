@@ -101,11 +101,15 @@ Thread.new{
       end
 
       if( j["type"] == "push" && j["push"]["type"] == "mirror" )
-        @json_obj.push j
-        puts wrap_string "#{ Time.now.strftime('%H:%M') } - #{ j["push"]["application_name"] } ".light_blue 
-        puts wrap_string "#{ j["push"]["title"] }".yellow
-        puts wrap_string j["push"]["body"]
-        puts 
+        if( @json_obj.size > 0 and @json_obj[-1]["push"]["body"] == j["push"]["body"] and @json_obj[-1]["push"]["title"] == j["push"]["title"]  )
+          print_msg "Duplicate!"
+        else
+          @json_obj.push j
+          puts wrap_string "#{ Time.now.strftime('%H:%M') } - #{ j["push"]["application_name"] } ".light_blue 
+          puts wrap_string "#{ j["push"]["title"] }".yellow
+          puts wrap_string j["push"]["body"]
+          puts 
+        end
       end
 
     end

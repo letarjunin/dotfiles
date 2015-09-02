@@ -44,23 +44,23 @@ def download_file( url, folder = TEMP_FILE )
 end
 
 def get_image( set_type )
-    #Note, you need your own API_KEY defined here.
-    client = Washbullet::Client.new( API_KEY )
-    pushes = client.get_pushes.body[ "pushes" ]
-    if( pushes.length )
-      if( SET_TYPE::SERVICE == set_type )
-        pushes = pushes.slice( 0, 1 )
-      end
-      pushes.each do |p|
-        if ( p[ "active" ].to_s == 'true' and 
-            p[ 'type' ].to_s == 'file' and
-            p[ 'file_type' ].to_s.include? ( 'image' ) )
-          download_file( p[ 'file_url' ] )
-          return true
-        end
+  #Note, you need your own API_KEY defined here.
+  client = Washbullet::Client.new( API_KEY )
+  pushes = client.get_pushes.body[ "pushes" ]
+  if( pushes.length )
+    if( SET_TYPE::SERVICE == set_type )
+      pushes = pushes.slice( 0, 1 )
+    end
+    pushes.each do |p|
+      if ( p[ "active" ].to_s == 'true' and 
+          p[ 'type' ].to_s == 'file' and
+          p[ 'file_type' ].to_s.include? ( 'image' ) )
+        download_file( p[ 'file_url' ] )
+        return true
       end
     end
-    return false
+  end
+  return false
 end
 
 def set_wallpaper( set_type )
@@ -87,4 +87,4 @@ if __FILE__ == $0
   set_wallpaper( SET_TYPE::WALLPAPER )
 end
 
-# vim: set filetype=ruby:
+# vim: set filetype=ruby:ts =4:sw=4
