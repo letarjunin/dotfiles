@@ -36,10 +36,6 @@ if [ -f ~/.bash_completion ]; then
     . ~/.bash_completion
 fi
 
-#add workflow Script                                                               
-export PATH_TO_WF=$HOME/workflow/lib/workflow.rb                                   
-source $HOME/workflow/workflow.bash         
-
 function _get_user_str {
     local User="$LIGHT_GREEN\h$NO_COLOR"
     local SSH_IP=`echo $SSH_CLIENT | awk '{ print $1 }'`
@@ -74,21 +70,18 @@ function _get_path_str {
     fi
 }
 
-function _is_git_repo {
-    if [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1; then 
-        echo "1"
-    else
-        echo ""
-    fi
-}
-
+IG=0
 function _get_git_str {
-    if [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1; then 
-        git_f="$(git config --get remote.origin.url )"; 
-        git_f=${git_f##*/}; 
-        git_f=${git_f%.*}; 
-        git_modif="M$( echo $( git ls-files -m | wc -l ) )";
-        echo "$PINKISH$git_f$NO_COLOR|$CYAN$git_modif$NO_COLOR"; 
+    if [ $IG -eq 0 ]; then
+        if [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1; then 
+            git_f="$(git config --get remote.origin.url )"; 
+            git_f=${git_f##*/}; 
+            git_f=${git_f%.*}; 
+            git_modif="M$( echo $( git ls-files -m | wc -l ) )";
+            echo "$PINKISH$git_f$NO_COLOR|$CYAN$git_modif$NO_COLOR"; 
+        else
+            echo ""
+        fi;
     else
         echo ""
     fi;
@@ -124,7 +117,7 @@ function _get_ip_str {
 function _get_time_str {
     local date='$(date "+%a|%b|%d" | xargs )'
     local TIME_AUSTIN='$(date "+%l:%M %p" | xargs )'
-    echo "$WHITE_BLACK$TIME_AUSTIN$NO_COLOR|$DARK_GREEN$date$NO_COLOR"
+    echo "$BLUE$TIME_AUSTIN$NO_COLOR|$DARK_GREEN$date$NO_COLOR"
 }
 
 export PROMPT_COMMAND=__prompt_command
@@ -165,25 +158,15 @@ function __prompt_command {
     PS4='$BLUE+$NO_COLOR '
 }
 
-#for x in 0 1 4 5 7 8; do for i in `seq 30 37`; do for a in `seq 40 47`; do echo -ne "\e[$x;$i;$a""m\\\e[$x;$i;$a""m\e[0;37;40m "; done; echo; done; done; echo """]]]"
-
-#Code to get all the colors printed in bash.
-#for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done"]"
-
 
 #Set editor
 export EDITOR='vim'
 
-
 alias rsync='rsync -avzul --ignore-existing --stats --progress'
 alias mp2='ruby /media/naruto/Storage/Arjun/mplayer-ruby-master/mp2.rb'
 alias syn='syndaemon -i 1 -KRd'
-alias chr='~/open_chrome_w_touch.rb > /dev/null 2>&1 &'
 # wget --execute="robots = off" --mirror --convert-links --no-parent -nc http://blah.com
-
 #shopt -s globstar
 #rename 's/\.csv$/.2.csv/' **
 
-PATH=$PATH:/opt/perforce/bin
-export P4CONFIG=.p4config
-PATH=$PATH:~/Documents/repo/synergy/bin/
+PATH=$PATH:/Users/user_name/Documents/repo/depot_tools
