@@ -1,0 +1,173 @@
+export MAKE=/usr/bin/make
+
+#SVN's default editor to vim
+export SVN_EDITOR=vim
+
+#adding alias to prune the folders if not part of SVN.
+alias prune='svn status --no-ignore | grep '"'^[I?]'"' | cut -c 9- | while IFS= read -r f; do rm -rf "$f"; done'
+
+#svn status without gibberish being thrown on screen.
+alias svnstatus="svn status --quiet | grep -v '^\?' | grep -v 'Performing' | grep -v \"^$\""
+
+#Alias tmux
+alias tmux='tmux -2'
+
+#set spell check
+set spell spelllang=en_us
+
+#Grep search alias
+grepSearchWithStype()
+{
+    echo "${*:2}"
+    grep -n -srn --binary-files=without-match --include=*.cpp --include=*.hpp --include=*.h --include=*.cs --include=*.rb --include=*.i --exclude-dir=.svn "${*:2}" . -e "'$1'"
+}
+
+alias grepf=grepSearchWithStype
+
+#Adding PB alias
+alias pb="~/pb.rb"
+
+#bash_func 
+if [ -f ~/.bash_funcs ]; then
+    .  ~/.bash_funcs
+fi
+
+if [ -f ~/.bash_completion ]; then
+    . ~/.bash_completion
+fi
+
+function _get_user_str {
+    local User="$LIGHT_GREEN\h$NO_COLOR"
+    local SSH_IP=`echo $SSH_CLIENT | awk '{ print $1 }'`
+    local SSH2_IP=`echo $SSH2_CLIENT | awk '{ print $1 }'`
+    if [ $SSH2_IP ] || [ $SSH_IP ] ; then
+        User="$YELLO\h$NO_COLOR"
+    fi
+    echo $User
+}
+
+FULL_PATH=1
+function _get_path_str {
+    if [ $FULL_PATH -eq 0 ]; then
+        local depth='$( if [[ ! $PWD =~ .*${HOME}* ]]; then
+                        echo NA; 
+                        exit; 
+                    fi; 
+                    i=0; 
+                    while [ "${PWD}" != "${HOME}" ]; do 
+                        ((i++));
+                        cd ../; 
+                    done; 
+                    if [ $i -gt 0 ]; then 
+                        echo "$i";
+                    else 
+                        echo NA; 
+                    fi; 
+                 )'
+        echo "$ORANGE\W|$depth$NO_COLOR"
+    else
+        echo "$ORANGE\w$NO_COLOR"
+    fi
+}
+
+IG=0
+function _get_git_str {
+    if [ $IG -eq 0 ]; then
+        if [ -d .git ] || git rev-parse --git-dir > /dev/null 2>&1; then 
+            git_f="$(git config --get remote.origin.url )"; 
+            git_f=${git_f##*/}; 
+            git_f=${git_f%.*}; 
+            git_modif="M$( echo $( git ls-files -m | wc -l ) )";
+            echo "$PINKISH$git_f$NO_COLOR|$CYAN$git_modif$NO_COLOR"; 
+        else
+            echo ""
+        fi;
+    else
+        echo ""
+    fi;
+}
+
+function _get_ip_str {
+    local gString=""
+    local ubuntu="cscotun"
+    local mac="utun0"
+    local wlan="wlan"
+    local eth0="eth0"
+    local eth1="eth1"
+
+    if [ "$( ifconfig | grep $mac -A1 )" ]; then
+        gString=$wlan
+        echo "$GREY2"$( ifconfig utun0 | awk '/inet /{print substr($0,7,14)}' )"$NO_COLOR|"
+        return
+    fi
+
+    if [ "$( ifconfig | grep $ubuntu -A1 )" ]; then
+        gString=$ubuntu
+    elif [ "$( ifconfig | grep $wlan -A1 )" ]; then
+        gString=$wlan
+    elif [ "$( ifconfig | grep $eth0 -A1 )" ]; then
+        gString=$eth0
+    else
+        gString=$eth1
+    fi;
+    local ipaddress="$( ifconfig | grep $gString -A1 | tail -1 | awk '/inet addr/{print substr($2,6)}' )"
+    echo "$YELLO$ipaddress$NO_COLOR"
+}
+
+function _get_time_str {
+    local date='$(date "+%a|%b|%d" | xargs )'
+    local TIME_AUSTIN='$(date "+%l:%M %p" | xargs )'
+    echo "$BLUE$TIME_AUSTIN$NO_COLOR|$WHITE$date$NO_COLOR"
+}
+
+export PROMPT_COMMAND=__prompt_command
+
+function __prompt_command {
+    local err_="$?"
+    local BLUE="\[\033[1;38;05;31m\]"
+    local YELLO="\[\033[1;38;05;184m\]"
+    local LIGHT_GREEN="\[\033[1;38;05;40m\]"
+    local ORANGE="\[\033[1;38;05;202m\]"
+    local RED2="\[\033[1;38;05;196m\]"
+    local GREY1="\[\033[1;38;05;235m\]"
+    local GREY2="\[\033[1;38;05;244m\]"
+    local CYAN="\[\033[1;38;05;44m\]"
+    local DARK_GREEN="\[\033[1;38;05;65m\]"
+    local WHITE_BLACK="\[\033[7;38;05;07m\]"
+    local WHITE="\[\033[1;38;05;7m\]"
+    local RED="\[\033[1;38;05;1m\]"
+    local PINKISH="\[\033[1;38;05;168m\]"
+    local NO_COLOR="\[\033[0m\]"
+
+    local time="($(_get_time_str))"
+    local job="$( jobs | echo $( wc -l ) )"
+    if [ $job -gt 0 ]; then
+        job="($RED2+J$job$NO_COLOR)"
+    else
+        job=""
+    fi
+    local git=$(_get_git_str)
+    if [ $git ]; then
+        git="($git)"
+    fi
+    local path="($(_get_path_str))"
+    local user="($(_get_user_str))"
+
+    PS1="┌$time$user$git$job$path\n└>$ ";
+    PS2="$BLUE>$NO_COLOR "
+    PS4='$BLUE+$NO_COLOR '
+}
+
+
+#Set editor
+export EDITOR='vim'
+
+alias rsync='rsync -avzul --ignore-existing --stats --progress'
+alias mp2='ruby /media/naruto/Storage/Arjun/mplayer-ruby-master/mp2.rb'
+alias syn='syndaemon -i 1 -KRd'
+# wget --execute="robots = off" --mirror --convert-links --no-parent -nc http://blah.com
+#shopt -s globstar
+#rename 's/\.csv$/.2.csv/' **
+
+PATH=$PATH:/Users/amazon/Documents/repo/depot_tools
+

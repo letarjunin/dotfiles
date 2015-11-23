@@ -15,9 +15,9 @@
 #   limitations under the License.
 
 ############################  SETUP PARAMETERS
-app_name='spf13-vim'
-[ -z "$APP_PATH" ] && APP_PATH="$HOME/.spf13-vim-3"
-[ -z "$REPO_URI" ] && REPO_URI='https://github.com/spf13/spf13-vim.git'
+app_name='dot_vim'
+[ -z "$APP_PATH" ] && APP_PATH="$HOME/.dot_vim"
+[ -z "$REPO_URI" ] && REPO_URI='https://github.com/letarjunin/dot_vim.git'
 [ -z "$REPO_BRANCH" ] && REPO_BRANCH='3.0'
 debug_mode='0'
 fork_maintainer='0'
@@ -117,27 +117,6 @@ sync_repo() {
     debug
 }
 
-create_symlinks() {
-    local source_path="$1"
-    local target_path="$2"
-
-    lnif "$source_path/.vimrc"         "$target_path/.vimrc"
-    lnif "$source_path/.vimrc.bundles" "$target_path/.vimrc.bundles"
-    lnif "$source_path/.vimrc.before"  "$target_path/.vimrc.before"
-    lnif "$source_path/.vim"           "$target_path/.vim"
-
-    if program_exists "nvim"; then
-        lnif "$source_path/.vim"       "$target_path/.config/nvim"
-        lnif "$source_path/.vimrc"     "$target_path/.config/nvim/init.vim"
-    fi
-
-    touch  "$target_path/.vimrc.local"
-
-    ret="$?"
-    success "Setting up vim symlinks."
-    debug
-}
-
 setup_fork_mode() {
     local source_path="$2"
     local target_path="$3"
@@ -188,9 +167,6 @@ sync_repo       "$APP_PATH" \
                 "$REPO_BRANCH" \
                 "$app_name"
 
-create_symlinks "$APP_PATH" \
-                "$HOME"
-
 setup_fork_mode "$fork_maintainer" \
                 "$APP_PATH" \
                 "$HOME"
@@ -203,4 +179,3 @@ sync_repo       "$HOME/.vim/bundle/vundle" \
 setup_vundle    "$APP_PATH/.vimrc.bundles.default"
 
 msg             "\nThanks for installing $app_name."
-msg             "© `date +%Y` http://vim.spf13.com/"

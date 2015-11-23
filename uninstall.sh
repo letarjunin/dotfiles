@@ -1,6 +1,6 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-app_dir="$HOME/.spf13-vim-3"
+source common.sh 
 
 warn() {
     echo "$1" >&2
@@ -11,8 +11,18 @@ die() {
     exit 1
 }
 
-rm $HOME/.vimrc
-rm $HOME/.vimrc.bundles
-rm $HOME/.vim
+for link in $all_files ; do
+    link_path=$HOME/$link
+    if [ -L $link_path ]; then
+        debug "Unlinking $link_path"
+        rm $link_path
+    fi
+    if [ -d $link_path ]; then
+        debug "Deleting $link_path"
+        rm -rf $link_path
+    fi
+done
+
 
 rm -rf $app_dir
+echo "Uninstall complete!"
