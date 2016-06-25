@@ -30,8 +30,7 @@ for link in $all_files ; do
     backup_file_and_link $link
 done
 
-echo "Installing dot_vim - this may take a while.."
-./install_dot_vim.sh
+curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && sh spf13-vim.sh
 
 echo ""
 echo "DONE!"
