@@ -6,7 +6,7 @@ command! -complete=shellcmd -nargs=+ Gs call s:RunGrepCommand(<q-args>)
 function! s:RunGrepCommand(cmdline)
     let expanded_cmdline = a:cmdline
 
-    let extensions = "c|cpp|hpp|h|cs|rb|i|py|pl|sh|bash"
+    let extensions = "c|cc|cpp|hpp|h|cs|rb|i|py|pl|sh|bash|java|xml|js"
     let includes = ""
     for fileType in split(extensions, '|')
         let includes .= "--include=*." . fileType . " "
@@ -49,3 +49,6 @@ UnBundle 'mattn/webapi-vim'
 UnBundle 'mattn/gist-vim'
 UnBundle 'tpope/vim-rails'
 UnBundle 'tacahiroy/ctrlp-funky'
+
+" Removing trailing whitespaces in a file. 
+" :%s/\s\+$//e

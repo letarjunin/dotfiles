@@ -1,2 +1,3 @@
 Bundle 'Xuyuanp/nerdtree-git-plugin'
 Bundle 'FelikZ/ctrlp-py-matcher'
+Bundle 'dhruvasagar/vim-table-mode'
