@@ -1,6 +1,5 @@
 
 nnoremap <F4> :execute "Gs " . expand("<cword>") <CR>
-nnoremap <F5> :call TogglePresentation()<CR>
 
 command! -complete=shellcmd -nargs=+ Gs call s:RunGrepCommand(<q-args>)
 function! s:RunGrepCommand(cmdline)
@@ -11,7 +10,7 @@ function! s:RunGrepCommand(cmdline)
     for fileType in split(extensions, '|')
         let includes .= "--include=*." . fileType . " "
     endfor
-    execute " lgrep -srn --binary-files=without-match " . includes . "--exclude-dir=.svn . -e \"" . expanded_cmdline . "\"" 
+    execute " lgrep -srn --binary-files=without-match " . includes . "--exclude-dir=.svn . -e \"" . expanded_cmdline . "\""
     lwindow
     1
 endfunction
@@ -19,7 +18,7 @@ endfunction
 command! -complete=shellcmd -nargs=+ Gts call s:RunTestGrepCommand(<q-args>)
 function! s:RunTestGrepCommand(cmdline)
     let expanded_cmdline = a:cmdline
-    execute " lgrep -srnw --binary-files=without-match --exclude-dir=.svn . -e \"" . expanded_cmdline . "\"" 
+    execute " lgrep -srnw --binary-files=without-match --exclude-dir=.svn . -e \"" . expanded_cmdline . "\""
     lwindow
     1
 endfunction
@@ -30,7 +29,7 @@ set path=.,/usr/include,,**
 "Opening gf in a new tab always
 nnoremap gf <C-W>gf
 
-"Trying to fix ctrlp 
+"Trying to fix ctrlp
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/\.git/*
 set wildmode=list:longest
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
@@ -50,5 +49,12 @@ UnBundle 'mattn/gist-vim'
 UnBundle 'tpope/vim-rails'
 UnBundle 'tacahiroy/ctrlp-funky'
 
-" Removing trailing whitespaces in a file. 
-" :%s/\s\+$//e
+" Removing trailing whitespaces in a file.
+:%s/\s\+$//e
+
+" ToggleTagBar plugin
+nmap <F8> :TagbarToggle<CR>
+ca tt TagbarToggle
+
+" Tabnew
+ca tn tabnew
