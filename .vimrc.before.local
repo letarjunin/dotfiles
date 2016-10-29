@@ -1,6 +1,8 @@
-let g:spf13_bundle_groups=['general', 'writing', 'neocomplete', 'programming', 'ruby', 'python',]
+let g:spf13_bundle_groups=['general', 'writing', 'neocomplete', 'programming', 'ruby', 'python', 'javascript', 'html', 'misc',]
 let g:spf13_no_autochdir = 1
-let g:ctrlp_working_path_mode = 'r'
+"let g:ctrlp_working_path_mode = 'r'
 let g:spf13_no_views = 1
 let g:neocomplete#enable_auto_close_preview = 0
 let g:autoclose_on = 1
+let g:tagbar_left = 1
+let g:tagbar_autoshowtag = 1
