@@ -5,7 +5,7 @@ command! -complete=shellcmd -nargs=+ Gs call s:RunGrepCommand(<q-args>)
 function! s:RunGrepCommand(cmdline)
     let expanded_cmdline = a:cmdline
 
-    let extensions = "c|cc|cpp|hpp|h|cs|rb|i|py|pl|sh|bash|java|xml|js"
+    let extensions = "c|cc|cpp|hpp|h|cs|rb|i|py|pl|sh|bash|java|xml|js|gn|gni|gyp|gypi"
     let includes = ""
     for fileType in split(extensions, '|')
         let includes .= "--include=*." . fileType . " "
@@ -27,7 +27,7 @@ endfunction
 set path=.,/usr/include,,**
 
 "Opening gf in a new tab always
-nnoremap gf <C-W>gf
+nnoremap gf <C-W>gF
 
 "Trying to fix ctrlp
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/\.git/*
@@ -39,6 +39,7 @@ set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+let g:ctrlp_custom_ignore = '|git|out|third_party|linux|windows|android_tools|'
 
 "Removing install plugins.
 UnBundle 'jiangmiao/auto-pairs'

@@ -89,3 +89,10 @@ fi
 source ~/.bashrc.local
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+vxport PATH=/home/local/ANT/arjunkar/tools/depot_tools:/apollo/env/SDETools/bin:~/Cloud9TiaAndroidClient-1.0/bin:/home/local/ANT/arjunkar/tools/depot_tools:/usr/local/bin:/usr/bin:/bin:/usr/lib/lightdm/lightdm:/home/local/ANT/arjunkar/tools/sdk/platform-tools:/usr/lib/eclipse:/usr/bin/eclipse/
+export CCACHE_SLOPPINESS=include_file_mtime
+case hB in *i*)
+  ccache --max-size=30G;
+esac
