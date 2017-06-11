@@ -1,5 +1,17 @@
 
 nnoremap <F4> :execute "Gs " . expand("<cword>") <CR>
+command -nargs=? G call GitGrep(<f-args>)
+
+func GitGrep(...)
+  let save = &grepprg
+  set grepprg=git\ grep\ -n\ $*
+  let s = 'grep'
+  for i in a:000
+    let s = s . ' ' . i
+  endfor
+  exe s
+  let &grepprg = save
+endfun
 
 command! -complete=shellcmd -nargs=+ Gs call s:RunGrepCommand(<q-args>)
 function! s:RunGrepCommand(cmdline)
@@ -38,8 +50,21 @@ set wildignore+=*.gem
 set wildignore+=log/**
 set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+"let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+
 let g:ctrlp_custom_ignore = '|git|out|third_party|linux|windows|android_tools|'
+
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+    " Use Ag over Grep
+    set grepprg=ag\ --nogroup\ --nocolor
+    " Use ag in CtrlP for listing files. Lightning fast and respects  .gitignore
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
+let g:deoplete#enable_at_startup = 1
 
 "Removing install plugins.
 UnBundle 'jiangmiao/auto-pairs'
@@ -50,6 +75,7 @@ UnBundle 'mattn/gist-vim'
 UnBundle 'tpope/vim-rails'
 UnBundle 'tacahiroy/ctrlp-funky'
 
+
 " Removing trailing whitespaces in a file.
 :%s/\s\+$//e
 
@@ -59,3 +85,5 @@ ca tt TagbarToggle
 
 " Tabnew
 ca tn tabnew
+
+set cc=80
