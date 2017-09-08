@@ -44,6 +44,50 @@ alias adbkill='adb shell am force-stop com.amazon.cloud9'
 alias adbhome='adb shell am start -a android.intent.action.MAIN -c android.intent.category.HOME'
 alias vi="vim"
 alias grep='grep --color=always'
-export devdesk="dev-dsk-arjunkar-2a-2bed2328.us-west-2.amazon.com"
+export devdesk="dev-dsk-arjunkar-2a-62165ba1.us-west-2.amazon.com"
+export devdesk2="dev-dsk-arjunkar-2b-db734069.us-west-2.amazon.com"
 
 alias iceport='echo "ssh -f u94de80b652ee58764c73.ant.amazon.com -L 58440:u94de80b652ee58764c73.ant.amazon.com:58440 -N";ssh -f u94de80b652ee58764c73.ant.amazon.com -L 58440:u94de80b652ee58764c73.ant.amazon.com:58440 -N'
+alias ggraph='echo "git log --graph --decorate --oneline --all --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\''";git log --graph --decorate --oneline --all --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\'
+
+alias gs="gclient sync"
+
+alias gpr="git pull --rebase"
+
+alias os='echo "adb shell am start -n com.amazon.cloud9/com.amazon.slate.SlateActivity";adb shell am start -n com.amazon.cloud9/com.amazon.slate.SlateActivity'
+alias d='echo "adb shell am start -n com.amazon.cloud9/org.chromium.chrome.browser.download.DownloadActivity";adb shell am start -n com.amazon.cloud9/org.chromium.chrome.browser.download.DownloadActivity'
+
+# workspace
+alias slate1='cd /home/local/ANT/arjunkar/workspaces/slate1/src'
+alias slate2='cd /home/local/ANT/arjunkar/workspaces/slate2/src'
+alias slate3='cd /home/local/ANT/arjunkar/workspaces/slate3/src'
+
+
+export d1='dev-dsk-arjunkar-2a-62165ba1.us-west-2.amazon.com:/local/arjun/workspaces/slate1'
+export d2='dev-dsk-arjunkar-2a-62165ba1.us-west-2.amazon.com:/local/arjun/workspaces/slate2'
+export d3='dev-dsk-arjunkar-2a-62165ba1.us-west-2.amazon.com:/local/arjun/workspaces/slate3'
+
+alias s="python ~/Documents/sync.py"
+
+h() {
+    $(b -p)
+}
+
+ggf() {
+     if [ -z "$1"   ]
+     then
+         echo "Dude - pass a string to search!"
+     else
+         git grep -i $1 | fpp
+         echo "Dude wtf!"
+     fi
+}
+
+ alias gg="git grep -i "
+
+#Alias definitions for local machine
+if [ -f ~/.bash_aliases_local  ]; then
+    . ~/.bash_aliases_local
+fi
+
+#'git log --graph --decorate --oneline --all --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\'

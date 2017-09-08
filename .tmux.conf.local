@@ -52,8 +52,8 @@ tmux_conf_theme_window_bg='default'
 tmux_conf_theme_highlight_focused_pane=false
 
 # focused pane colours:
-tmux_conf_theme_focused_pane_fg='default'
-tmux_conf_theme_focused_pane_bg='#0087d7'               # light blue
+#tmux_conf_theme_focused_pane_fg='default'
+#tmux_conf_theme_focused_pane_bg='#0087d7'               # light blue
 
 # pane border style, possible values are:
 #   - thin (default)
@@ -61,12 +61,12 @@ tmux_conf_theme_focused_pane_bg='#0087d7'               # light blue
 tmux_conf_theme_pane_border_style=thin
 
 # pane borders colours:
-tmux_conf_theme_pane_border='#444444'                   # gray
-tmux_conf_theme_pane_active_border='#00afff'            # light blue
+#tmux_conf_theme_pane_border='#444444'                   # gray
+#tmux_conf_theme_pane_active_border='#00afff'            # light blue
 
 # pane indicator colours
-tmux_conf_theme_pane_indicator='#00afff'                # light blue
-tmux_conf_theme_pane_active_indicator='#00afff'         # light blue
+#tmux_conf_theme_pane_indicator='#00afff'                # light blue
+#tmux_conf_theme_pane_active_indicator='#00afff'         # light blue
 
 # status line style
 tmux_conf_theme_message_fg='#000000'                    # black
@@ -102,7 +102,7 @@ tmux_conf_theme_window_status_format='#I #W'
 #   - built-in variables are:
 #     - #{circled_window_index}
 tmux_conf_theme_window_status_current_fg='#e4e4e4'      # white
-tmux_conf_theme_window_status_current_bg='#00afff'      # light blue
+tmux_conf_theme_window_status_current_bg='#008080'      # teal
 tmux_conf_theme_window_status_current_attr='bold'
 tmux_conf_theme_window_status_current_format='#I #W'
 #tmux_conf_theme_window_status_current_format='#{circled_window_index} #W'
@@ -119,7 +119,7 @@ tmux_conf_theme_window_status_bell_bg='default'
 tmux_conf_theme_window_status_bell_attr='blink,bold'
 
 # window last status style
-tmux_conf_theme_window_status_last_fg='#00afff'         # light blue
+tmux_conf_theme_window_status_last_fg='#008080'         # teal
 tmux_conf_theme_window_status_last_bg='default'
 tmux_conf_theme_window_status_last_attr='none'
 
@@ -231,7 +231,7 @@ tmux_conf_theme_clock_style='24'
 # this is the place to override or undo settings
 
 # increase history size
-#set -g history-limit 10000
+set -g history-limit 20000
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
@@ -241,28 +241,12 @@ tmux_conf_theme_clock_style='24'
 # move status line to top
 #set -g status-position top
 
-#Current open window will have orange! :D
-#black, red, green, yellow, blue, magenta, cyan, white, orange=color208
-set -g status-fg colour208
-set -g status-bg colour236
-
 #Adding Activity Monitor
 setw -g monitor-activity on
 set -g visual-activity on
 
-# Highlight active window
-set-window-option -g window-status-current-bg white
-set-window-option -g window-status-current-fg black
-
-#Set the pane border colors
-#set -g window-style 'fg=colour247,bg=colour236'
-#set -g window-active-style 'fg=colour250,bg=black'
-set -g window-active-style 'fg=colour247,bg=colour232'
-set -g window-style 'fg=colour250,bg=colour235'
-set -g pane-border-fg colour250
-set -g pane-border-bg colour236
-set -g pane-active-border-fg red
-set -g pane-active-border-bg colour250
+#set -g window-style "fg=colour255,bg=#002733"
+#set -g window-active-style 'fg=colour255,bg=#002D3B'
 
 #Enable mouse support.
 set-option -g -q mouse on
@@ -282,10 +266,11 @@ bind-key -Tcopy-mode-vi 'y' send -X copy-pipe 'xclip -sel clip -i'
 
 bind-key -T root PPage if-shell -F "#{alternate_on}" "send-keys PPage" "copy-mode -e; send-keys PPage"
 
-#bind-key C-b last-window
+bind-key C-b last-window
 
 # Use mouse to scroll.
 bind-key -T root WheelUpPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; copy-mode -e; send-keys -M"
 bind-key -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; send-keys -M"
 
-
+#set -g window-active-style "bg=colour232"
+#set -g window-style "bg=colour235"
