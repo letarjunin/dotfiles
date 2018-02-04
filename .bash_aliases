@@ -20,14 +20,18 @@ alias less='less -R'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 alias f="find | grep -i "
-alias gg="git grep -i "
 
 alias clean="echo 'adb shell pm clear com.amazon.cloud9';adb shell pm clear com.amazon.cloud9"
+
 alias gitshow="echo 'git show --pretty=\"format:\" --name-only';git show --pretty=\"format:\" --name-only "
+alias gg="git grep -i "
+alias gf="git ls-files | grep -i"
+alias gpr="git pull --rebase"
+alias glog="git log --pretty=oneline"
 
 alias b="ruby /home/local/ANT/arjunkar/Documents/ninja_exec.rb"
 
-alias ss='echo "ssh -f u94de80b652ee58764c73.ant.amazon.com -L 24800:u94de80b652ee58764c73.ant.amazon.com:24800 -N";ssh -f u94de80b652ee58764c73.ant.amazon.com -L 24800:u94de80b652ee58764c73.ant.amazon.com:24800 -N'
+alias ss='echo "ssh -f u8cdcd44a400b59ea9d24.ant.amazon.com -L 24800:u8cdcd44a400b59ea9d24.ant.amazon.com:24800 -N";ssh -f u8cdcd44a400b59ea9d24.ant.amazon.com -L 24800:u8cdcd44a400b59ea9d24.ant.amazon.com:24800 -N'
 
 
 alias adbc='echo "adb logcat -c"; adb logcat -c'
@@ -42,34 +46,28 @@ alias adbstart='adb shell am start -a android.intent.action.VIEW -d "www.bing.co
 #Kill
 alias adbkill='adb shell am force-stop com.amazon.cloud9'
 alias adbhome='adb shell am start -a android.intent.action.MAIN -c android.intent.category.HOME'
-alias vi="vim"
+alias vi="nvim"
+alias vim="nvim"
 alias grep='grep --color=always'
 export devdesk="dev-dsk-arjunkar-2a-62165ba1.us-west-2.amazon.com"
 export devdesk2="dev-dsk-arjunkar-2b-db734069.us-west-2.amazon.com"
 
-alias iceport='echo "ssh -f u94de80b652ee58764c73.ant.amazon.com -L 58440:u94de80b652ee58764c73.ant.amazon.com:58440 -N";ssh -f u94de80b652ee58764c73.ant.amazon.com -L 58440:u94de80b652ee58764c73.ant.amazon.com:58440 -N'
-alias ggraph='echo "git log --graph --decorate --oneline --all --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\''";git log --graph --decorate --oneline --all --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\'
+alias iceport='echo "ssh -f u8cdcd44a400b59ea9d24.ant.amazon.com -L 58440:u8cdcd44a400b59ea9d24.ant.amazon.com:58440 -N";ssh -f u8cdcd44a400b59ea9d24.ant.amazon.com -L 58440:u8cdcd44a400b59ea9d24.ant.amazon.com:58440 -N'
 
 alias gs="gclient sync"
-
-alias gpr="git pull --rebase"
 
 alias os='echo "adb shell am start -n com.amazon.cloud9/com.amazon.slate.SlateActivity";adb shell am start -n com.amazon.cloud9/com.amazon.slate.SlateActivity'
 alias d='echo "adb shell am start -n com.amazon.cloud9/org.chromium.chrome.browser.download.DownloadActivity";adb shell am start -n com.amazon.cloud9/org.chromium.chrome.browser.download.DownloadActivity'
 
 # workspace
-alias slate1='cd /home/local/ANT/arjunkar/workspaces/slate1/src'
-alias slate2='cd /home/local/ANT/arjunkar/workspaces/slate2/src'
-alias slate3='cd /home/local/ANT/arjunkar/workspaces/slate3/src'
-
-
-export d1='dev-dsk-arjunkar-2a-62165ba1.us-west-2.amazon.com:/local/arjun/workspaces/slate1'
-export d2='dev-dsk-arjunkar-2a-62165ba1.us-west-2.amazon.com:/local/arjun/workspaces/slate2'
-export d3='dev-dsk-arjunkar-2a-62165ba1.us-west-2.amazon.com:/local/arjun/workspaces/slate3'
+alias slate1='cd /home/local/ANT/arjunkar/workspaces/s1/src'
+alias slate2='cd /home/local/ANT/arjunkar/workspaces/s2/src'
+alias slate3='cd /home/local/ANT/arjunkar/workspaces/s3/src'
 
 alias s="python ~/Documents/sync.py"
 
 h() {
+    echo "$(b -p)"
     $(b -p)
 }
 
@@ -83,11 +81,21 @@ ggf() {
      fi
 }
 
- alias gg="git grep -i "
-
 #Alias definitions for local machine
 if [ -f ~/.bash_aliases_local  ]; then
     . ~/.bash_aliases_local
 fi
 
-#'git log --graph --decorate --oneline --all --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\'
+alias big="cd /media/arjunkar/Extra/workspaces/"
+
+alias gss="git status -uno"
+
+alias rec="adb shell screenrecord –bit-rate 10000000 –verbose /sdcard/screencapt.mp4"
+
+function cherryp {
+    commit=$(git log -1 $1 | head -n 1| awk '{print $2}')
+    echo "Cherry-picking $commit from $1"
+    git cherry-pick $commit
+}
+
+

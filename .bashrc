@@ -97,3 +97,14 @@ case hB in *i*)
   ccache --max-size=30G;
 esac
 export PATH=/home/local/ANT/arjunkar/tools/depot_tools:/apollo/env/SDETools/bin:~/Cloud9TiaAndroidClient-1.0/bin:/home/local/ANT/arjunkar/.rvm/gems/ruby-2.2.1/bin:/home/local/ANT/arjunkar/.rvm/gems/ruby-2.2.1@global/bin:/home/local/ANT/arjunkar/.rvm/rubies/ruby-2.2.1/bin:/home/local/ANT/arjunkar/tools/depot_tools:/usr/local/bin:/usr/bin:/bin:/usr/lib/lightdm/lightdm:/home/local/ANT/arjunkar/tools/sdk/platform-tools:/usr/lib/eclipse:/home/local/ANT/arjunkar/.rvm/bin:/usr/bin/eclipse/
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export PATH=/home/local/ANT/arjunkar/tools/depot_tools:/home/local/ANT/arjunkar/tools/depot_tools:/apollo/env/SDETools/bin:/home/local/ANT/arjunkar/Cloud9TiaAndroidClient-1.0/bin:/home/local/ANT/arjunkar/.rvm/gems/ruby-2.2.1/bin:/home/local/ANT/arjunkar/.rvm/gems/ruby-2.2.1@global/bin:/home/local/ANT/arjunkar/.rvm/rubies/ruby-2.2.1/bin:/home/local/ANT/arjunkar/tools/depot_tools:/usr/local/bin:/usr/bin:/bin:/usr/lib/lightdm/lightdm:/home/local/ANT/arjunkar/tools/sdk/platform-tools:/usr/lib/eclipse:/home/local/ANT/arjunkar/.rvm/bin:/usr/bin/eclipse/
+export CCACHE_SLOPPINESS=include_file_mtime
+case hB in *i*)
+  ccache --max-size=30G;
+esac
