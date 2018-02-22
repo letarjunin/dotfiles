@@ -8,3 +8,5 @@ Bundle 'mhinz/vim-grepper'
 Bundle 'sonph/onehalf'
 Bundle 'morhetz/gruvbox'
 Bundle 'NLKNguyen/papercolor-theme'
+set rtp+=/usr/local/opt/fzf
+Bundle 'junegunn/fzf.vim'

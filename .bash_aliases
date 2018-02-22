@@ -56,13 +56,11 @@ alias iceport='echo "ssh -f u8cdcd44a400b59ea9d24.ant.amazon.com -L 58440:u8cdcd
 
 alias gs="gclient sync"
 
-alias os='echo "adb shell am start -n com.amazon.cloud9/com.amazon.slate.SlateActivity";adb shell am start -n com.amazon.cloud9/com.amazon.slate.SlateActivity'
-alias d='echo "adb shell am start -n com.amazon.cloud9/org.chromium.chrome.browser.download.DownloadActivity";adb shell am start -n com.amazon.cloud9/org.chromium.chrome.browser.download.DownloadActivity'
+alias os='echo "adb shell am start -n com.amazon.cloud9/com.amazon.slate.SlateActivity";adb shell am start -n com.amazon.cloud9/com.amazon.slate.SlatePreferences'
+
+alias co='git checkout'
 
 # workspace
-alias slate1='cd /home/local/ANT/arjunkar/workspaces/s1/src'
-alias slate2='cd /home/local/ANT/arjunkar/workspaces/s2/src'
-alias slate3='cd /home/local/ANT/arjunkar/workspaces/s3/src'
 
 alias s="python ~/Documents/sync.py"
 

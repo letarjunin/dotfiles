@@ -108,3 +108,5 @@ export CCACHE_SLOPPINESS=include_file_mtime
 case hB in *i*)
   ccache --max-size=30G;
 esac
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
