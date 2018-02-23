@@ -46,8 +46,8 @@ alias adbstart='adb shell am start -a android.intent.action.VIEW -d "www.bing.co
 #Kill
 alias adbkill='adb shell am force-stop com.amazon.cloud9'
 alias adbhome='adb shell am start -a android.intent.action.MAIN -c android.intent.category.HOME'
+
 alias vi="nvim"
-alias vim="nvim"
 alias grep='grep --color=always'
 export devdesk="dev-dsk-arjunkar-2a-62165ba1.us-west-2.amazon.com"
 export devdesk2="dev-dsk-arjunkar-2b-db734069.us-west-2.amazon.com"
@@ -95,5 +95,3 @@ function cherryp {
     echo "Cherry-picking $commit from $1"
     git cherry-pick $commit
 }
-
-
