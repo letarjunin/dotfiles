@@ -48,6 +48,9 @@
         Plug 'kana/vim-textobj-user'
         Plug 'kana/vim-textobj-indent'
         Plug 'gcmt/wildfire.vim'
+        Plug 'terryma/vim-expand-region'
+        Plug 'mhinz/vim-startify'
+        Plug 'gregsexton/gitv', {'on': ['Gitv']}
     " }
 
     " Writing {
@@ -65,7 +68,7 @@
         Plug 'scrooloose/nerdcommenter', { 'on': 'NERDTreeToggle' }
         Plug 'tpope/vim-commentary'
         Plug 'godlygeek/tabular'
-        Plug 'luochen1990/rainbow'
+        Plug 'kien/rainbow_parentheses.vim'
         Plug 'sheerun/vim-polyglot'
         Plug 'SirVer/ultisnips'
         if executable('ctags')
