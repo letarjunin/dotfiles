@@ -19,7 +19,7 @@ backup_file_and_link()
     if program_exists "grealpath"; then
         local realpath='grealpath'
     else
-	local real_path='realpath'
+	local realpath='realpath'
     fi
     backup_from=~/$1
     if [ -f "$backup_from" ]; then
