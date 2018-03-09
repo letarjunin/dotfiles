@@ -75,13 +75,6 @@ let g:not_installing=1
         augroup END
     endif
 
-    " Load this at runtime when on insert mode.
-    augroup load_us_ins
-      autocmd!
-      autocmd InsertEnter * call plug#load('vim-signify', 'deoplete.nvim', 'neocomplcache')
-                         \| autocmd! load_us_ins
-    augroup END
-
     " Setting up the directories {
         set backup                  " Backups are nice ...
         if has('persistent_undo')
@@ -102,7 +95,7 @@ let g:not_installing=1
 
     highlight clear SignColumn      " SignColumn should match background
     highlight clear LineNr          " Current line number row will have same background color in relative mode
-    "highlight clear CursorLineNr    " Remove highlight color from current line number
+    highlight clear CursorLineNr    " Remove highlight color from current line number
 
     if has('cmdline_info')
         set ruler                   " Show the ruler
@@ -246,6 +239,7 @@ let g:not_installing=1
     nmap <leader>f7 :set foldlevel=7<CR>
     nmap <leader>f8 :set foldlevel=8<CR>
     nmap <leader>f9 :set foldlevel=9<CR>
+    set foldlevel=20
 
     " Most prefer to toggle search highlighting rather than clear the current
     " search results. To clear search highlighting rather than toggle it on
@@ -282,7 +276,7 @@ let g:not_installing=1
 
     " Removing trailing whitespaces in a file.
     :%s/\s\+$//e
-    
+
     " ToggleTagBar plugin
     ca tt TagbarToggle
     " tabnew shortcut
@@ -291,6 +285,11 @@ let g:not_installing=1
     ca gg GrepperGit
     " Shortcut to god
     ca f FZF
+
+
+    map <Leader>vl :VimuxRunLastCommand<CR>
+    map <Leader>vq :VimuxCloseRunner<CR>
+    map <Leader>vp :VimuxPromptCommand<CR>
 
     function! WrapForTmux(s)
         if !exists('$TMUX')
@@ -340,7 +339,7 @@ let g:not_installing=1
         let g:NERDShutUp=1
         let b:match_ignorecase = 1
     " }
-    
+
     " OmniComplete {
         " To disable omni complete, add the following to your .vimrc.before.local file:
         "   let g:spf13_no_omni_complete = 1
@@ -596,13 +595,18 @@ let g:not_installing=1
     " }
 " }
 
-" Source all the plugs 
+" Source all the plugs
     if filereadable(expand("~/.vimrc.plug.support"))
         source ~/.vimrc.plug.support
     endif
 " }
 
+    let g:solarized_termcolors=256
+    let g:solarized_termtrans=1
+    let g:solarized_contrast="normal"
+    let g:solarized_visibility="normal"
 
+    "autocmd VimEnter * hi Normal ctermbg=none
 " Needs to go to the end {
     colorscheme gruvbox
     let g:airline_theme='gruvbox'
