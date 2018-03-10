@@ -1,0 +1,20 @@
+# Source Prezto.
+export MNAME="MAC"
+
+if [[ -s "${HOME}/.bash_aliases" ]]; then
+  source "${HOME}/.bash_aliases"
+fi
+
+export PATH="/usr/local/bin:/usr/bin:/bin:/apollo/env/SDETools/bin:$PATH"
+export PATH="$PATH:$HOME/.cargo/bin"
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
+# Customize to your needs...
+export LC_ALL=en_US.UTF-8
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+PATH="$PATH:/usr/local/bin"

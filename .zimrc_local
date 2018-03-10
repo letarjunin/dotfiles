@@ -1,0 +1,18 @@
+zprompt_theme='eriner'
+
+zmodules=(directory \
+          environment \
+          git 
+          git-info \
+          history \
+          input \
+          utility \
+          custom \
+          syntax-highlighting \
+          history-substring-search \
+          prompt \
+          autosuggestions \
+          completion)
+
+setopt CORRECT
+
