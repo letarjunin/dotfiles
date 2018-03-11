@@ -19,6 +19,8 @@
         Plug 'junegunn/vim-plug'
         Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
         Plug 'spf13/vim-colors'
+        Plug 'bluz71/vim-moonfly-colors'
+        Plug 'rakr/vim-one'
         Plug 'tpope/vim-surround'
         Plug 'tpope/vim-repeat'
         Plug 'rhysd/conflict-marker.vim'
@@ -97,6 +99,7 @@
         Plug 'davidhalter/jedi-vim'
         Plug 'christoomey/vim-tmux-navigator'
         Plug 'wellle/tmux-complete.vim'
+        Plug 'benmills/vimux'
         Plug 'mhinz/vim-grepper', { 'on': ['Grepper', 'GrepperGit', '<plug>(GrepperOperator)'] }
         Plug 'morhetz/gruvbox'
         Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }

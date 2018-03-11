@@ -282,7 +282,7 @@ let g:not_installing=1
 
     " Removing trailing whitespaces in a file.
     :%s/\s\+$//e
-    
+
     " ToggleTagBar plugin
     ca tt TagbarToggle
     " tabnew shortcut
@@ -291,6 +291,10 @@ let g:not_installing=1
     ca gg GrepperGit
     " Shortcut to god
     ca f FZF
+    " Vimux - wrapper
+    map <Leader>vp :VimuxPromptCommand<CR>
+    map <Leader>vl :VimuxRunLastCommand<CR>
+
 
     function! WrapForTmux(s)
         if !exists('$TMUX')
@@ -340,7 +344,7 @@ let g:not_installing=1
         let g:NERDShutUp=1
         let b:match_ignorecase = 1
     " }
-    
+
     " OmniComplete {
         " To disable omni complete, add the following to your .vimrc.before.local file:
         "   let g:spf13_no_omni_complete = 1
@@ -596,7 +600,7 @@ let g:not_installing=1
     " }
 " }
 
-" Source all the plugs 
+" Source all the plugs
     if filereadable(expand("~/.vimrc.plug.support"))
         source ~/.vimrc.plug.support
     endif
