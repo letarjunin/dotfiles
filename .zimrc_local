@@ -1,4 +1,4 @@
-zprompt_theme='eriner'
+zprompt_theme='oxajun'
 
 zmodules=(directory \
           environment \
