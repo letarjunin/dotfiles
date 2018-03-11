@@ -38,6 +38,7 @@
         Plug 'jistr/vim-nerdtree-tabs', { 'on': 'NERDTreeToggle' }
         Plug 'flazz/vim-colorschemes'
         Plug 'rafi/awesome-vim-colorschemes'
+        Plug 'sonph/onehalf', {'rtp': 'vim/'}
         Plug 'mbbill/undotree'
         Plug 'nathanaelkane/vim-indent-guides'
         Plug 'mhinz/vim-signify', { 'on': [] }

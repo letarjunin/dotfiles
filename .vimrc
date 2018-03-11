@@ -608,6 +608,6 @@ let g:not_installing=1
 
 
 " Needs to go to the end {
-    colorscheme gruvbox
-    let g:airline_theme='gruvbox'
+    colorscheme onehalfdark
+    let g:airline_theme='onehalfdark'
 " }
