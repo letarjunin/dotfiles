@@ -75,18 +75,10 @@
     " }
 
     " Snippets & AutoComplete {
-        if (has("nvim") || !exists('g:not_installing'))
-            Plug 'Shougo/neocomplcache', { 'on': [] }
-            Plug 'Shougo/neosnippet'
-            Plug 'Shougo/neosnippet-snippets'
-            Plug 'honza/vim-snippets'
-        endif
-        if (!has("nvim") || !exists('g:not_installing'))
-            Plug 'Shougo/neocomplete.vim'
-            Plug 'Shougo/neosnippet'
-            Plug 'Shougo/neosnippet-snippets'
-            Plug 'honza/vim-snippets'
-        endif
+        Plug 'Shougo/neocomplcache', { 'on': [] }
+        Plug 'Shougo/neosnippet'
+        Plug 'Shougo/neosnippet-snippets'
+        Plug 'honza/vim-snippets'
     " }
 
     " Python {
@@ -96,7 +88,7 @@
     " }
 
         Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-        Plug 'Shougo/deoplete.nvim', { 'on': [] }
+        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
         Plug 'davidhalter/jedi-vim'
         Plug 'christoomey/vim-tmux-navigator'
         Plug 'wellle/tmux-complete.vim'
@@ -105,7 +97,6 @@
         Plug 'morhetz/gruvbox'
         Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
         Plug 'junegunn/fzf.vim'
-
         Plug 'edkolev/tmuxline.vim'
 
         call plug#end()

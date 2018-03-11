@@ -11,6 +11,7 @@
 set t_Co=256
 let g:powerline_pycmd="py3"
 let g:not_installing=1
+let g:deoplete#enable_at_startup = 1
 " }
 
 
@@ -608,6 +609,6 @@ let g:not_installing=1
 
 
 " Needs to go to the end {
-    colorscheme onehalfdark
-    let g:airline_theme='onehalfdark'
+    colorscheme gruvbox
+    let g:airline_theme='gruvbox'
 " }
