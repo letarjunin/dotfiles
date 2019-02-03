@@ -266,7 +266,7 @@ bind-key -Tcopy-mode-vi 'y' send -X copy-pipe 'xclip -sel clip -i'
 
 bind-key -T root PPage if-shell -F "#{alternate_on}" "send-keys PPage" "copy-mode -e; send-keys PPage"
 
-bind-key C-b last-window
+#bind-key C-b last-window
 
 # Use mouse to scroll.
 bind-key -T root WheelUpPane if-shell -F -t = "#{alternate_on}" "send-keys -M" "select-pane -t =; copy-mode -e; send-keys -M"

@@ -10,6 +10,7 @@ zmodules=(directory \
           custom \
           syntax-highlighting \
           history-substring-search \
+          fasd \
           prompt \
           autosuggestions \
           completion)

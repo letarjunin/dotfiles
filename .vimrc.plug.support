@@ -12,10 +12,12 @@
 
     " Plug Support {
         Plug 'marcWeber/vim-addon-mw-utils'
+
         Plug 'tomtom/tlib_vim'
     " }
 
     " General Bundles {
+        Plug 'junegunn/vim-plug'
         Plug 'junegunn/vim-plug'
         Plug 'scrooloose/nerdtree'
         Plug 'jistr/vim-nerdtree-tabs'
@@ -73,6 +75,10 @@
         " Pick either python-mode or pyflakes & pydoc
         Plug 'klen/python-mode', { 'for': 'python',  'branch': 'develop'}
         Plug 'yssource/python.vim', { 'for': 'python' }
+    " }
+    "
+    " Ruby {
+    "   Plug 'vim-ruby/vim-ruby'
     " }
 
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }

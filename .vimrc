@@ -9,6 +9,8 @@ set t_Co=256
 let g:powerline_pycmd="py3"
 let g:not_installing=1
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#file#enable_buffer_path = 1
+let g:deoplete#enable_smart_case = 1
 " }
 
 
@@ -274,9 +276,6 @@ let g:deoplete#enable_at_startup = 1
 
     " Easier formatting
     nnoremap <silent> <leader>q gwip
-
-    " Make gf always open a new tab
-    nnoremap gf <C-W>gF
 
     " Removing trailing whitespaces in a file.
     :%s/\s\+$//e
@@ -636,3 +635,8 @@ let g:deoplete#enable_at_startup = 1
     colorscheme solarized8
     let g:airline_theme='solarized'
 " }
+
+" Make gf always open a new tab
+nnoremap gf <C-W>gF
+
+set clipboard=unnamed
