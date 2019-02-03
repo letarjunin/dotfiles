@@ -640,3 +640,6 @@ let g:deoplete#enable_smart_case = 1
 nnoremap gf <C-W>gF
 
 set clipboard=unnamed
+
+" If installed using git
+Plug '~/.fzf'
