@@ -5,9 +5,6 @@
 "
 
 " Variables {
-"let g:spf13_no_restore_cursor = 1
-"let g:spf13_no_easyWindows = 1
-"let g:airline_theme = ''
 set t_Co=256
 let g:powerline_pycmd="py3"
 let g:not_installing=1
@@ -241,7 +238,7 @@ let g:deoplete#enable_at_startup = 1
     nmap <leader>f1 :set foldlevel=1<CR>
     nmap <leader>f2 :set foldlevel=2<CR>
     nmap <leader>f3 :set foldlevel=3<CR>
-    nmap <leader>f4 :set foldlevel=4<CR>
+    "nmap <leader>f4 :set foldlevel=4<CR>
     nmap <leader>f5 :set foldlevel=5<CR>
     nmap <leader>f6 :set foldlevel=6<CR>
     nmap <leader>f7 :set foldlevel=7<CR>
@@ -292,6 +289,33 @@ let g:deoplete#enable_at_startup = 1
     ca gg GrepperGit
     " Shortcut to god
     ca f FZF
+
+    "Nerd tree"
+    nmap <F6> :NERDTreeToggle<CR>
+
+    let NERDTreeShowHidden=1 " Always show dot files
+
+    "Repeat"
+    silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+
+    "Rainbow toggle"
+    au VimEnter * RainbowParenthesesToggle
+
+    "Java!!!"
+    autocmd FileType java setlocal omnifunc=javacomplete#Complete
+    nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)<Paste>
+	imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+	nmap <F5> <Plug>(JavaComplete-Imports-Add)
+	imap <F5> <Plug>(JavaComplete-Imports-Add)
+	nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+	imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+	nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+	imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+
+    "NerdTreeAlwaysOn"
+    map nt :NERDTreeTabsToggle<CR>
+
+
     " Vimux - wrapper
     map <Leader>vp :VimuxPromptCommand<CR>
     map <Leader>vl :VimuxRunLastCommand<CR>
@@ -609,6 +633,6 @@ let g:deoplete#enable_at_startup = 1
 
 
 " Needs to go to the end {
-    colorscheme gruvbox
-    let g:airline_theme='gruvbox'
+    colorscheme solarized8
+    let g:airline_theme='solarized'
 " }
