@@ -3,11 +3,6 @@
 
 " Plug Support {
 
-    " Setup Plug Support {
-        " The next three lines ensure that the ~/.vim/bundle/ system works
-        " Load vim-plug
-    " }
-
     call plug#begin('~/.vim/plugged')
 
     " Plug Support {
@@ -31,19 +26,24 @@
         Plug 'powerline/fonts'
         Plug 'bling/vim-bufferline'
         Plug 'easymotion/vim-easymotion'
+        Plug 'maxbrunsfeld/vim-yankstack'
         Plug 'mbbill/undotree'
         Plug 'nathanaelkane/vim-indent-guides'
         Plug 'mhinz/vim-signify', { 'on': [] }
         Plug 'osyo-manga/vim-over'
         Plug 'mhinz/vim-startify'
-    " }
-    "
-    
+        Plug 'kana/vim-textobj-user' " Mark Down
+        Plug 'reedes/vim-textobj-sentence' " Mark Down
+        Plug 'reedes/vim-textobj-quote' " Mark Down
+        Plug 'preservim/nerdcommenter'  " Comments are great
+    "   }
+
     " Colors {
         Plug 'spf13/vim-colors'
         Plug 'rafi/awesome-vim-colorschemes'
         Plug 'flazz/vim-colorschemes'
         Plug 'altercation/vim-colors-solarized'
+        Plug 'mhinz/vim-janah'
     "}
     "
 
@@ -61,6 +61,7 @@
             Plug 'majutsushi/tagbar'
         endif
         Plug 'artur-shaik/vim-javacomplete2'
+        Plug 'ycm-core/YouCompleteMe'
     " }
 
     " Snippets & AutoComplete {
@@ -76,9 +77,17 @@
         Plug 'klen/python-mode', { 'for': 'python',  'branch': 'develop'}
         Plug 'yssource/python.vim', { 'for': 'python' }
     " }
-    "
+
+
     " Ruby {
-    "   Plug 'vim-ruby/vim-ruby'
+       Plug 'vim-ruby/vim-ruby'
+    " }
+
+
+    " JavaScript {
+       Plug 'pangloss/vim-javascript'
+       Plug 'elzr/vim-json'
+       Plug 'mxw/vim-jsx'
     " }
 
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -93,4 +102,3 @@
 
         call plug#end()
 " }
-

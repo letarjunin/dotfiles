@@ -32,6 +32,7 @@ alias glog="git log --pretty=oneline"
 alias b="ruby /home/local/ANT/arjunkar/Documents/ninja_exec.rb"
 
 alias ss='echo "ssh -f u8cdcd44a400b59ea9d24.ant.amazon.com -L 24800:u8cdcd44a400b59ea9d24.ant.amazon.com:24800 -N";ssh -f u8cdcd44a400b59ea9d24.ant.amazon.com -L 24800:u8cdcd44a400b59ea9d24.ant.amazon.com:24800 -N'
+alias SSHD='ssh u8c14fb5dbe6b5a.ant.amazon.com'
 
 
 alias adbc='echo "adb logcat -c"; adb logcat -c'

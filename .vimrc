@@ -47,6 +47,8 @@ let g:deoplete#enable_smart_case = 1
         endif
     endif
 
+    set clipboard=unnamed
+
     set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
     set virtualedit=onemore             " Allow for cursor beyond last character

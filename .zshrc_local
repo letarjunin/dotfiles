@@ -1,10 +1,8 @@
 # Source Prezto.
 export MNAME="MAC"
 
-[[ -s ${HOME}/.bash_aliases ]] && source ${HOME}/.bash_aliases
+[[ -s ~/.bash_aliases ]] && source ~/.bash_aliases
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/apollo/env/SDETools/bin:$PATH"
-export PATH="$PATH:$HOME/.cargo/bin"
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export VISUAL=nvim
@@ -31,3 +29,35 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
+
+export BRAZIL_WORKSPACE_DEFAULT_LAYOUT=short
+
+export AUTO_TITLE_SCREENS="NO"
+
+ssh() {
+    set-title $*;
+    /usr/bin/ssh -2 $*;
+    set-title $HOST;
+}
+
+alias e=emacs
+alias bb=brazil-build
+
+alias bba='brazil-build apollo-pkg'
+alias bre='brazil-runtime-exec'
+alias brc='brazil-recursive-cmd'
+alias bws='brazil ws'
+alias bwsuse='bws use --gitMode -p'
+alias bwscreate='bws create -n'
+alias brc=brazil-recursive-cmd
+alias bbr='brc brazil-build'
+alias bball='brc --allPackages'
+alias bbb='brc --allPackages brazil-build'
+alias bbra='bbr apollo-pkg'
+
+export PATH="$PATH:/usr/local/bin/toolbox/bin"
+export PATH="$PATH:/workplace/arjunkar/depot_tools"
+export PATH="/usr/local/bin:$PATH"
+
+export PATH=`printf %s "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
+
